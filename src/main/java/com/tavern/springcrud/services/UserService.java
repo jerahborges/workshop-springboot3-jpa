@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.tavern.springcrud.entities.User;
@@ -19,7 +18,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public List<User> finAll(){
+	public List<User> findAll(){
 		return repository.findAll();
 	}
 	
@@ -29,6 +28,7 @@ public class UserService {
 	}
 	
 	public User insert(User obj) {
+		findById(obj.getId());
 		return repository.save(obj);
 	}
 	
@@ -43,6 +43,7 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
+		findById(id);
 		User entity = repository.getReferenceById(id);
 		updateData(entity,obj);
 		return repository.save(entity);
