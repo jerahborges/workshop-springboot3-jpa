@@ -28,13 +28,12 @@ public class UserService {
 	}
 	
 	public User insert(User obj) {
-		findById(obj.getId());
 		return repository.save(obj);
 	}
 	
 	public void delete(Long id) {
+		findById(id);
 		try {
-			findById(id);
 			repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e) {
